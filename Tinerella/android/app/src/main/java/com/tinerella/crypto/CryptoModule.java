@@ -35,7 +35,7 @@ public class CryptoModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public static void encrypt(String message, Promise promise) {
+    public static void encryptAES(String message, Promise promise) {
         try {
             SecretKey secretKey = KeyGenerator.getInstance("AES").generateKey();
             String stringKey = "";
@@ -83,7 +83,7 @@ public class CryptoModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void decrypt(String encrypted, String key, String initVector, Promise promise) {
+    public void decryptAES(String encrypted, String key, String initVector, Promise promise) {
         try {
             IvParameterSpec iv = new IvParameterSpec(Base64.decodeBase64(initVector.getBytes()), 0, 16);
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
