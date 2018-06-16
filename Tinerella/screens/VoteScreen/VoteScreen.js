@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import API from "../../API";
 
 export default class VoteScreen extends React.Component {
   static navigationOptions = {
@@ -17,13 +18,19 @@ export default class VoteScreen extends React.Component {
         <View style={styles.buttonWrapper}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigate("Result")}
+            onPress={() => {
+              API.getInstance().emit("Yes")
+              navigate("Result")
+            }}
           >
             <Text style={styles.buttonText}>Yes</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigate("Result")}
+            onPress={() => {
+              API.getInstance().emit("No")
+              navigate("Result")
+            }}
           >
             <Text style={styles.buttonText}>No</Text>
           </TouchableOpacity>

@@ -7,6 +7,7 @@ import {
   Image,
   TouchableHighlight
 } from "react-native";
+import API from "../../API";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -59,10 +60,27 @@ export default class HomeScreen extends React.Component {
     );
   }
 
+  getSocketProps(character) {
+    if(character === "Ron") {
+      return {
+        adress: 'toHermione',
+        listener: 'toRon'
+      }
+    } else if (character === "Hermione") {
+      return {
+        adress: 'toRon',
+        listener: 'toHermione'
+      }
+    }
+  }
+
   onPress(name) {
-    this.setState(previousState => {
-      return { chosenCharacter: name };
-    });
+    const api = API.getInstance()
+    const socketProps = this.getSocketProps(name)
+    api.setAdress(socketProps.adress)
+    api.setListener(socketProps.listener)
+
+    this.setState({ chosenCharacter: name });
   }
 }
 
